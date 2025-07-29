@@ -9,57 +9,24 @@
         margin: 0;
         padding: 0;
       }
-
-      .iframe-container iframe {
-        width: 100%;
-        min-height: 100vh; /* Minimum height is viewport height */
-        border: none;
-      }
     </style>
-
-    <script>
-      function resizeIframe() {
-        const iframe = document.querySelector("iframe");
-
-        // Method 1: Try to access iframe content (will fail for cross-origin)
-        // try {
-        //   const iframeDoc =
-        //     iframe.contentDocument || iframe.contentWindow.document;
-        //   const height = iframeDoc.body.scrollHeight;
-        //   iframe.style.height = height + "px";
-        //   console.log("Iframe resized to:", height + "px");
-        // } catch (e) {
-        //   console.log(
-        //     "Cannot access iframe content (cross-origin):",
-        //     e.message
-        //   );
-
-        // Method 2: Use postMessage if the iframe supports it
-        // The iframe would need to send us its height
-        window.addEventListener("message", function (event) {
-          if (event.data && event.data.height) {
-            iframe.style.height = event.data.height + "px";
-          }
-        });
-        // }
-      }
-
-      // Try to resize when iframe loads
-      window.addEventListener("load", resizeIframe);
-    </script>
   </head>
   <body>
-    <h1>Wow Im some text</h1>
-    <p>I'm some other content</p>
-
-    <div class="iframe-container">
-      <iframe
-        src="https://dataviz.moodys.com/apac-power-carbon-transition/"
-      ></iframe>
-    </div>
+    <div id="embed-thing"></div>
 
     <div>
       <p>I'm some other content</p>
     </div>
+    <script
+      type="text/javascript"
+      src="https://pym.nprapps.org/pym.v1.min.js"
+    ></script>
+    <script>
+      var pymParent = new pym.Parent(
+        "embed-thing",
+        "https://dataviz.moodys.com/apac-power-carbon-transition/index.html",
+        {}
+      );
+    </script>
   </body>
 </html>
